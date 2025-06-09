@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8">
-  <title>Countdown Timer</title>
+  <title>Nedtelling til sommerferie 2025</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       text-align: center;
       margin-top: 100px;
+      background-color: #fef9e7;
+      color: #333;
+    }
+    h1 {
+      font-size: 40px;
+      color: #e67e22;
     }
     #countdown {
       font-size: 48px;
-      color: #333;
+      margin-top: 20px;
+    }
+    p {
+      font-size: 20px;
+      margin-top: 40px;
     }
   </style>
 </head>
 <body>
 
-  <h1>Nedtelling til sommerferie</h1>
+  <h1>🌞 Nedtelling til sommerferie 2025 🌞</h1>
   <div id="countdown"></div>
 
+  <p>Denne siden teller ned til sommerferien 2025.  
+  Den tar utgangspunkt i at du slutter på jobb fredag 4. juli klokken 15:30.</p>
+
   <script>
-    const targetDate = new Date("2025-07-04T15:30:00").getTime(); // ← change this
+    // Sluttidspunkt: Fredag 4. juli 2025 kl. 15:30
+    const targetDate = new Date("2025-07-04T15:30:00+02:00").getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
       if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "🎉 It's time!";
+        document.getElementById("countdown").innerHTML = "🎉 God sommerferie!";
         clearInterval(interval);
         return;
       }
@@ -39,11 +53,11 @@
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       document.getElementById("countdown").innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        `${days} dager ${hours}t ${minutes}m ${seconds}s`;
     }
 
-    updateCountdown(); // initial call
-    const interval = setInterval(updateCountdown, 1000); // update every second
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
   </script>
 
 </body>
