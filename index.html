@@ -2,23 +2,81 @@
 <html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Sommerferie 2025</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nedtelling til Sommerferien</title>
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
+  
   <style>
+    /* Bakgrunnsbilde fra Unsplash som funker */
     body {
-      font-family: sans-serif;
+      margin: 0;
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      font-family: 'Fredoka', sans-serif;
+      color: white;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       text-align: center;
-      margin-top: 50px;
+      padding: 20px;
     }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.2em;
+    }
+    
+    p {
+      font-size: 1.3rem;
+      margin-top: 0;
+      margin-bottom: 1.5em;
+      max-width: 450px;
+    }
+    
     .count {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
+      font-size: 2.5rem;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 25px 50px;
+      border-radius: 25px;
+      min-width: 320px;
+      animation: fadeIn 1.8s ease forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Responsivt */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .count {
+        font-size: 1.8rem;
+        padding: 15px 30px;
+        min-width: auto;
+      }
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Nedtelling til 4. juli 2025 kl. 15:30</h1>
-  <div class="count" id="countdown"></div>
-  <div class="count" id="workdays"></div>
+
+  <h1>Nedtelling til Sommerferien</h1>
+  <p>Snart kan du legge bort jobb og nyte late sommerdager. Bare litt mer tålmodighet!</p>
+
+  <div id="countdown" class="count"></div>
+  <div id="workdays" class="count" style="margin-top: 20px;"></div>
 
   <script>
     const targetDate = new Date("2025-07-04T15:30:00");
@@ -28,7 +86,7 @@
       const timeDiff = targetDate - now;
 
       if (timeDiff <= 0) {
-        document.getElementById("countdown").textContent = "Tidspunktet er passert!";
+        document.getElementById("countdown").textContent = "Sommerferien er her! 🌞";
         document.getElementById("workdays").textContent = "";
         return;
       }
@@ -54,7 +112,7 @@
 
       while (current <= endDate) {
         const day = current.getDay();
-        if (day !== 0 && day !== 6) {
+        if (day !== 0 && day !== 6) { // Mandag-Fredag
           workdays++;
         }
         current.setDate(current.getDate() + 1);
@@ -69,7 +127,7 @@
 
       let startDate = new Date(now);
 
-      // Hvis vi er forbi cutoff i dag, starter vi å telle fra i morgen
+      // Hvis nå er etter cutoff (15:30), start fra neste dag
       if (
         now.getHours() > cutoffHour ||
         (now.getHours() === cutoffHour && now.getMinutes() >= cutoffMin)
@@ -85,5 +143,6 @@
     updateCountdown();
     setInterval(updateCountdown, 1000);
   </script>
+
 </body>
 </html>
