@@ -1,64 +1,63 @@
 <!DOCTYPE html>
 <html lang="no">
 <head>
-  <meta charset="UTF-8">
-  <title>Nedtelling til sommerferie 2025</title>
+  <meta charset="UTF-8" />
+  <title>Nedtelling til 4. juli</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
       text-align: center;
-      margin-top: 100px;
-      background-color: #fef9e7;
-      color: #333;
+      margin-top: 50px;
     }
-    h1 {
-      font-size: 40px;
-      color: #e67e22;
-    }
-    #countdown {
-      font-size: 48px;
-      margin-top: 20px;
-    }
-    p {
-      font-size: 20px;
-      margin-top: 40px;
+    .count {
+      font-size: 2rem;
     }
   </style>
 </head>
 <body>
-
-  <h1>🌞 Nedtelling til sommerferie 2025 🌞</h1>
-  <div id="countdown"></div>
-
-  <p>Denne siden teller ned til sommerferien 2025.  
-  Den tar utgangspunkt i at du slutter på jobb fredag 4. juli klokken 15:30.</p>
+  <h1>Nedtelling til 4. juli 2025 kl. 15:30</h1>
+  <div class="count" id="countdown"></div>
+  <div class="count" id="workdays"></div>
 
   <script>
-    // Sluttidspunkt: Fredag 4. juli 2025 kl. 15:30
-    const targetDate = new Date("2025-07-04T15:30:00+02:00").getTime();
+    const targetDate = new Date("2025-07-04T15:30:00");
 
     function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+      const now = new Date();
+      const timeDiff = targetDate - now;
 
-      if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "🎉 God sommerferie!";
-        clearInterval(interval);
+      if (timeDiff <= 0) {
+        document.getElementById("countdown").textContent = "Tidspunktet er passert!";
+        document.getElementById("workdays").textContent = "";
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // Tid igjen
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+      const seconds = Math.floor((timeDiff / 1000) % 60);
 
-      document.getElementById("countdown").innerHTML =
-        `${days} dager ${hours}t ${minutes}m ${seconds}s`;
+      document.getElementById("countdown").textContent =
+        `${days} dager, ${hours} timer, ${minutes} minutter, ${seconds} sekunder`;
+
+      // Beregn arbeidsdager igjen
+      let workDays = 0;
+      let tempDate = new Date(now);
+      tempDate.setHours(0, 0, 0, 0);
+
+      while (tempDate < targetDate) {
+        const day = tempDate.getDay();
+        if (day !== 0 && day !== 6) workDays++; // Ikke søndag (0) eller lørdag (6)
+        tempDate.setDate(tempDate.getDate() + 1);
+      }
+
+      document.getElementById("workdays").textContent =
+        `Arbeidsdager igjen: ${workDays}`;
     }
 
     updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
+    setInterval(updateCountdown, 1000);
   </script>
-
 </body>
 </html>
