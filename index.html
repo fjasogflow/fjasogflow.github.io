@@ -10,7 +10,8 @@
       margin-top: 50px;
     }
     .count {
-      font-size: 2rem;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
     }
   </style>
 </head>
@@ -41,19 +42,44 @@
       document.getElementById("countdown").textContent =
         `${days} dager, ${hours} timer, ${minutes} minutter, ${seconds} sekunder`;
 
-      // Beregn arbeidsdager igjen
-      let workDays = 0;
-      let tempDate = new Date(now);
-      tempDate.setHours(0, 0, 0, 0);
+      // Arbeidsdager igjen
+      document.getElementById("workdays").textContent =
+        `Arbeidsdager igjen: ${getWorkdaysLeft(now, targetDate)}`;
+    }
 
-      while (tempDate < targetDate) {
-        const day = tempDate.getDay();
-        if (day !== 0 && day !== 6) workDays++; // Ikke søndag (0) eller lørdag (6)
-        tempDate.setDate(tempDate.getDate() + 1);
+    function countWorkingDays(startDate, endDate) {
+      let workdays = 0;
+      let current = new Date(startDate);
+      current.setHours(0, 0, 0, 0);
+
+      while (current <= endDate) {
+        const day = current.getDay();
+        if (day !== 0 && day !== 6) {
+          workdays++;
+        }
+        current.setDate(current.getDate() + 1);
       }
 
-      document.getElementById("workdays").textContent =
-        `Arbeidsdager igjen: ${workDays}`;
+      return workdays;
+    }
+
+    function getWorkdaysLeft(now, endDate) {
+      const cutoffHour = 15;
+      const cutoffMin = 30;
+
+      let startDate = new Date(now);
+
+      // Hvis vi er forbi cutoff i dag, starter vi å telle fra i morgen
+      if (
+        now.getHours() > cutoffHour ||
+        (now.getHours() === cutoffHour && now.getMinutes() >= cutoffMin)
+      ) {
+        startDate.setDate(startDate.getDate() + 1);
+      }
+
+      startDate.setHours(0, 0, 0, 0);
+
+      return countWorkingDays(startDate, endDate);
     }
 
     updateCountdown();
