@@ -59,3 +59,17 @@ function getWorkdaysLeft(now, endDate) {
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
+function highlightToday() {
+  const today = new Date().getDay(); // 1=man, ..., 5=fre
+  const days = document.querySelectorAll('.day');
+
+  days.forEach(dayEl => {
+    if (parseInt(dayEl.dataset.day) === today) {
+      dayEl.classList.add('active');
+    } else {
+      dayEl.classList.remove('active');
+    }
+  });
+}
+
+highlightToday();
