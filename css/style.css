@@ -1,1 +1,57 @@
+body {
+  margin: 0;
+  height: 100vh;
+  background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: 'Fredoka', sans-serif;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
 
+h1 {
+  font-size: 3rem;
+  margin-bottom: 0.2em;
+}
+
+p {
+  font-size: 1.3rem;
+  margin-top: 0;
+  margin-bottom: 1.5em;
+  max-width: 450px;
+}
+
+.count {
+  font-size: 2.5rem;
+  background: rgba(0, 0, 0, 0.45);
+  padding: 25px 50px;
+  border-radius: 25px;
+  min-width: 320px;
+  animation: fadeIn 1.8s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2rem;
+  }
+  .count {
+    font-size: 1.8rem;
+    padding: 15px 30px;
+    min-width: auto;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
