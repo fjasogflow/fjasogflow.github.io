@@ -4,71 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nedtelling til sommerferien</title>
-  
+
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka&display=swap" rel="stylesheet" />
-  
-  <style>
-    /* Bakgrunnsbilde fra Unsplash som funker */
-    body {
-      margin: 0;
-      height: 100vh;
-      background-image: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?auto=format&fit=crop&w=1950&q=80');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      font-family: 'Fredoka', sans-serif;
-      color: white;
-      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-    }
-    
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 0.2em;
-    }
-    
-    p {
-      font-size: 1.3rem;
-      margin-top: 0;
-      margin-bottom: 1.5em;
-      max-width: 450px;
-    }
-    
-    .count {
-      font-size: 2.5rem;
-      background: rgba(0, 0, 0, 0.45);
-      padding: 25px 50px;
-      border-radius: 25px;
-      min-width: 320px;
-      animation: fadeIn 1.8s ease forwards;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    /* Responsivt */
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 2rem;
-      }
-      .count {
-        font-size: 1.8rem;
-        padding: 15px 30px;
-        min-width: auto;
-      }
-      p {
-        font-size: 1rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
@@ -78,71 +17,6 @@
   <div id="countdown" class="count"></div>
   <div id="workdays" class="count" style="margin-top: 20px;"></div>
 
-  <script>
-    const targetDate = new Date("2025-07-04T15:30:00");
-
-    function updateCountdown() {
-      const now = new Date();
-      const timeDiff = targetDate - now;
-
-      if (timeDiff <= 0) {
-        document.getElementById("countdown").textContent = "Sommerferien er her! 🌞";
-        document.getElementById("workdays").textContent = "";
-        return;
-      }
-
-      // Tid igjen
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
-      const seconds = Math.floor((timeDiff / 1000) % 60);
-
-      document.getElementById("countdown").textContent =
-        `${days} dager, ${hours} timer, ${minutes} minutter, ${seconds} sekunder`;
-
-      // Arbeidsdager igjen
-      document.getElementById("workdays").textContent =
-        `Arbeidsdager igjen: ${getWorkdaysLeft(now, targetDate)}`;
-    }
-
-    function countWorkingDays(startDate, endDate) {
-      let workdays = 0;
-      let current = new Date(startDate);
-      current.setHours(0, 0, 0, 0);
-
-      while (current <= endDate) {
-        const day = current.getDay();
-        if (day !== 0 && day !== 6) { // Mandag-Fredag
-          workdays++;
-        }
-        current.setDate(current.getDate() + 1);
-      }
-
-      return workdays;
-    }
-
-    function getWorkdaysLeft(now, endDate) {
-      const cutoffHour = 15;
-      const cutoffMin = 30;
-
-      let startDate = new Date(now);
-
-      // Hvis nå er etter cutoff (15:30), start fra neste dag
-      if (
-        now.getHours() > cutoffHour ||
-        (now.getHours() === cutoffHour && now.getMinutes() >= cutoffMin)
-      ) {
-        startDate.setDate(startDate.getDate() + 1);
-      }
-
-      startDate.setHours(0, 0, 0, 0);
-
-      return countWorkingDays(startDate, endDate);
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  </script>
-
+  <script src="js/script.js"></script>
 </body>
 </html>
