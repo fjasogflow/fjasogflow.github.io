@@ -24,7 +24,17 @@
     <div class="day" data-day="4">T</div>
     <div class="day" data-day="5">F</div>
   </div>
-  
+
+  <div id="workday-progress-container">
+  <svg id="workday-progress" width="100" height="100" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" stroke="#ccc" stroke-width="10" fill="none" />
+    <circle id="progress-circle" cx="50" cy="50" r="45" stroke="#4caf50" stroke-width="10" fill="none"
+            stroke-linecap="round" stroke-dasharray="283" stroke-dashoffset="283" />
+    </svg>
+    <div id="progress-text">0%</div>
+    <div style="margin-top: 8px; font-size: 0.9rem; color: #ddd;">Arbeidsdagens fremdrift</div>
+  </div>
+
   <script src="js/script.js"></script>
 </body>
 </html>
