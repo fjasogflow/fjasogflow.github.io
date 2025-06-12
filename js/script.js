@@ -73,3 +73,45 @@ function highlightToday() {
 }
 
 highlightToday();
+
+function updateWorkdayProgress() {
+  const startHour = 8;
+  const endHour = 15;
+  const endMin = 30;
+
+  const now = new Date();
+
+  // Sett start og slutt tidspunkt for arbeidsdag
+  const startTime = new Date(now);
+  startTime.setHours(startHour, 0, 0, 0);
+
+  const endTime = new Date(now);
+  endTime.setHours(endHour, endMin, 0, 0);
+
+  let progressPercent = 0;
+
+  if (now < startTime) {
+    progressPercent = 0;
+  } else if (now > endTime) {
+    progressPercent = 100;
+  } else {
+    const elapsed = now - startTime;
+    const total = endTime - startTime;
+    progressPercent = (elapsed / total) * 100;
+  }
+
+  const circle = document.getElementById("progress-circle");
+  const radius = circle.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
+
+  // Juster stroke dashoffset for å fylle sirkelen
+  const offset = circumference - (progressPercent / 100) * circumference;
+  circle.style.strokeDashoffset = offset;
+
+  // Oppdater prosenttekst
+  document.getElementById("progress-text").textContent = `${Math.floor(progressPercent)}%`;
+}
+
+// Kjør oppdatering hvert sekund
+updateWorkdayProgress();
+setInterval(updateWorkdayProgress, 1000);
