@@ -29,3 +29,9 @@ h1 {
   font-weight: 300;
   line-height: 1.4;
 }
+
+background-image: url("https://source.unsplash.com/1920x1080/?croatia,adriatic,pebble-beach,clear-water,pine-trees");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
