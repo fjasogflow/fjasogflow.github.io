@@ -1,4 +1,4 @@
-const vacationDate = new Date("2026-07-03T15:30:00");
+const vacationDate = new Date("2026-07-02T15:30:00");
 const flightDate = new Date("2026-07-07T15:00:00");
 
 function daysLeft(target) {
